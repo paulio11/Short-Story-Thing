@@ -22,6 +22,10 @@ const Changelog = () => {
             <strong>Issue:</strong> Page scroll position does not reset when
             navigating to a new page.
           </li>
+          <li>
+            <strong>Issue:</strong> The background color of a tapped button does
+            not reset after being pressed.
+          </li>
         </ul>
 
         <h4>Menu</h4>
@@ -42,6 +46,10 @@ const Changelog = () => {
           <li>
             Users can now resume reading their last unfinished story directly
             from the home screen.
+          </li>
+          <li>
+            <strong>Issue:</strong> The "Read a random story" button does not
+            provide feedback when no unread stories are available.
           </li>
         </ul>
 
@@ -83,6 +91,14 @@ const Changelog = () => {
           <li>
             Closing a book now instantly creates a 100% progress activity
             record.
+          </li>
+        </ul>
+
+        <h4>Add Story</h4>
+        <ul>
+          <li>
+            <strong>Fix:</strong> Rapid multiple clicks of the add story button
+            no longer generate duplicate story objects.
           </li>
         </ul>
 
