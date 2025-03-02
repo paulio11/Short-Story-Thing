@@ -102,11 +102,7 @@ const Stories = () => {
               setFilters({ ...filters, searchQuery: e.target.value.trim() })
             }
           />
-          <button
-            type="submit"
-            className="button-with-icon"
-            disabled={!filters.searchQuery}
-          >
+          <button type="submit" className="button-with-icon">
             <span className="material-symbols-outlined">search</span>
           </button>
         </div>
