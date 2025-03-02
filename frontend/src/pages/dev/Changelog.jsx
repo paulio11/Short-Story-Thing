@@ -18,6 +18,10 @@ const Changelog = () => {
             Refactored nearly all code, improving efficiency, readability, and
             maintainability.
           </li>
+          <li>
+            <strong>Issue:</strong> Page scroll position does not reset when
+            navigating to a new page.
+          </li>
         </ul>
 
         <h4>Menu</h4>
