@@ -9,7 +9,7 @@ class Story(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=400)
     author = models.CharField(max_length=200)
-    content = models.TextField(max_length=50000)
+    content = models.TextField()
     is_public = models.BooleanField(default=True)
 
     def __str__(self):
