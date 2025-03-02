@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import { setBackendAvailabilityCallback } from "./api/AxiosConfig";
 import { useAuth } from "./contexts/AuthContext";
@@ -20,6 +20,7 @@ import Users from "./pages/users/Users";
 
 function App() {
   const { userLoading } = useAuth();
+  const { pathname } = useLocation();
   const [backendAvailable, setBackendAvailable] = useState(true);
 
   useEffect(() => {
@@ -33,6 +34,10 @@ function App() {
   if (!backendAvailable) {
     return <ServerError />;
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <>
