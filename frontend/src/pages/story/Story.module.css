@@ -1,0 +1,51 @@
+@media screen and (display-mode: standalone) {
+  .storyPage {
+    padding-bottom: 200px !important;
+    margin-top: 40px !important;
+  }
+}
+
+.storyPage {
+  background-color: var(--story-page-color);
+  overflow-y: auto;
+  height: 100vh;
+  line-height: 1.6;
+  overflow-y: auto;
+  text-align: justify;
+  white-space: pre-line;
+  position: relative;
+  padding: 100px 20px 150px 20px;
+  box-sizing: border-box;
+}
+
+.initial {
+  font-size: 120px;
+  font-weight: bold;
+  opacity: 20%;
+  position: absolute;
+  top: 70px;
+  left: 10px;
+}
+
+.author {
+  font-style: italic;
+  margin-bottom: 30px;
+  width: 100%;
+  text-align: right;
+}
+
+.author span {
+  opacity: 50%;
+}
+
+.content::before {
+  content: "     ";
+  display: inline-block;
+  width: 50px;
+}
+
+.theEnd {
+  font-style: italic;
+  text-align: right;
+  margin-top: 30px;
+}

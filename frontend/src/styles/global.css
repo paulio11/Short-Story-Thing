@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Itim&family=Solway:wght@300;400;500;700;800&display=swap");
+
+/* z-index:
+997  - Header / Footer
+999  - Sidebar background
+1000 - Sidebar
+1001 - Modal/Overlay 
+1002 - Bookmark */
+
+/* Variables */
+
+:root {
+  --primary-text-color: #333;
+  --dark-background-color: #333;
+  --dark-red: #980000;
+  --active-red: #b60000;
+  --story-page-color: #fdfaf3;
+  --nav-menu-link-color: #e5d3ab;
+  --section-background-color: #f4f4f4;
+  --progress-background: #9b9b9b;
+  --overlay-color: rgba(0, 0, 0, 0.7);
+
+  --box-shadow: -3px 0 10px rgba(0, 0, 0, 0.4);
+
+  --primary-font-family: Georgia, "Times New Roman", Times, serif;
+  --heading-font-family: "Cinzel", Georgia, "Times New Roman", Times, serif;
+  --other-font-family: "Solway", Arial, Helvetica, sans-serif;
+  --handwriting-font-family: "Itim", Georgia, "Times New Roman", Times, serif;
+
+  --story-line-height: 1.6;
+  --border-radius: 5px;
+  --default-space: 20px;
+  --header-space: 80px;
+}
+
+/* Body */
+
+body {
+  margin: 0;
+  color: var(--primary-text-color);
+  font-family: var(--primary-font-family);
+  /* to hide highlight color on phone */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Headings */
+
+h1,
+h2 {
+  font-family: var(--heading-font-family);
+}
+
+h3:first-of-type {
+  margin-top: 0;
+}
+
+/* Links */
+
+a {
+  color: inherit;
+}
+
+/* Buttons */
+
+button {
+  border: none;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-family: var(--other-font-family);
+  background-color: var(--dark-background-color);
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #9f9f9f;
+  pointer-events: none;
+}
+
+button:hover {
+  background-color: var(--dark-red);
+}
+
+button:active {
+  background-color: var(--active-red);
+}
+
+.button-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.button-with-icon span {
+  font-size: 20px;
+}
+
+/* Forms & Inputs */
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  font-family: var(--other-font-family);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.hidden-label {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+  height: 40px;
+  box-sizing: border-box;
+  padding-left: 10px;
+  border-radius: 0;
+  background-color: white;
+  color: var(--primary-text-color);
+  width: 100%;
+  border: 1px solid var(--primary-text-color);
+}
+
+textarea {
+  min-width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--primary-text-color);
+  font-family: var(--handwriting-font-family);
+  padding: 5px;
+  font-size: 14px;
+}
+
+.form-inputs {
+  padding: 10px;
+  background-color: var(--section-background-color);
+  border-radius: var(--border-radius);
+}
+
+.form-input-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.radio-input-group {
+  display: flex;
+  gap: 5px;
+}
+
+.checkbox-input-group {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+}
+
+.searchBar {
+  display: flex;
+  width: 100%;
+}
+
+.searchBar button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.searchBar button:disabled {
+  background-color: var(--primary-text-color);
+}
+
+.searchBar input {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  border-width: 2px;
+  border-right: none;
+}
+
+/* Section */
+
+section {
+  background-color: var(--section-background-color);
+  padding: calc(var(--default-space) / 2);
+  border-radius: var(--border-radius);
+}
+
+/* Styles for iPhone standalone mode */
+
+@media screen and (display-mode: standalone) {
+  .page {
+    margin-top: 120px !important;
+    min-height: 100vh;
+  }
+}
+
+/* Global Classes */
+
+.page {
+  margin-top: var(--header-space);
+  margin-bottom: var(--header-space);
+  padding: var(--default-space);
+}
+
+.alert {
+  color: var(--dark-red);
+}
+
+.message {
+  background-color: var(--section-background-color);
+  padding: calc(var(--default-space) / 2);
+  border-radius: var(--border-radius);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.message button {
+  display: block;
+  margin-top: var(--default-space);
+}
+
+.button-row-even {
+  margin-top: var(--default-space);
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  gap: var(--default-space);
+  flex-wrap: wrap;
+}
+
+.button-row-between {
+  margin-top: var(--default-space);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--default-space);
+  flex-wrap: wrap;
+}
+
+.button-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--default-space);
+}

@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /projects/shortstorything/
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /projects/shortstorything/index.html [L]

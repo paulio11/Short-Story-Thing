@@ -1,0 +1,28 @@
+.container {
+  margin-bottom: 10px;
+}
+
+.colors {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-bottom: 5px;
+}
+
+.color {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--primary-text-color);
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-right: 4px;
+}
+
+.selectedColor {
+  border-width: 4px;
+  border-color: black;
+  outline: 1px solid white;
+  outline-offset: -4px;
+}

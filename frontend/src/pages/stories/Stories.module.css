@@ -1,0 +1,13 @@
+.searchForm {
+  display: flex;
+  gap: 10px;
+}
+
+.sortBy button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.sortBy {
+  display: flex;
+}

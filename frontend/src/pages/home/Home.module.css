@@ -1,0 +1,36 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: var(--header-space);
+  height: calc(100vh - 80px);
+}
+
+.websiteTitle {
+  text-align: center;
+}
+
+.websiteTitle h1 {
+  font-size: 12vw;
+  margin: 0;
+}
+
+.websiteTitle h2 {
+  font-size: 8vw;
+  margin: 0;
+}
+
+.randomContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--section-background-color);
+  padding: var(--default-space);
+  border-radius: var(--border-radius);
+}
+
+.randomContainer label {
+  font-size: 12px;
+  margin: 0;
+}

@@ -1,0 +1,55 @@
+@media screen and (display-mode: standalone) {
+  .footer {
+    height: 80px !important;
+    padding-bottom: 40px !important;
+  }
+}
+
+.footer {
+  height: 60px;
+  padding: var(--default-space);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  z-index: 997;
+  background-color: #ebe0c9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.progressContainer {
+  flex-grow: 1;
+  height: 6px;
+  background: var(--nav-menu-link-color);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: #4caf50;
+}
+
+.percentage {
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: right;
+}
+
+.bookmarkBtn {
+  text-align: center;
+  box-sizing: border-box;
+  width: 126px;
+  color: white !important;
+  font-size: 14px;
+  padding: 5px 20px 5px 10px;
+  color: var(--nav-menu-link-color);
+  font-family: var(--other-font-family);
+  border-radius: 5px 0 0 5px; /* Round only the left side */
+  clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+}

@@ -1,0 +1,22 @@
+.ClearIconBtn {
+  color: var(--primary-text-color);
+  padding: 0;
+}
+
+.ClearIconBtn span {
+  font-size: 36px;
+}
+
+.ClearIconBtn,
+.ClearIconBtn:active,
+.ClearIconBtn:hover {
+  background: none;
+}
+
+.ClearIconBtn:hover {
+  color: var(--dark-red);
+}
+
+.ClearIconBtn:active {
+  color: var(--active-red);
+}

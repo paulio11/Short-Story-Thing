@@ -1,0 +1,8 @@
+.examplePage {
+  border-radius: var(--border-radius);
+  background-color: var(--story-page-color);
+  line-height: var(--story-line-height);
+  padding: 10px;
+  box-shadow: var(--box-shadow);
+  margin: 20px 0;
+}

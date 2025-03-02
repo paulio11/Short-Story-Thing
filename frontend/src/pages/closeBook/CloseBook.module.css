@@ -1,0 +1,25 @@
+.stars {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 14vw;
+}
+
+.stars span {
+  cursor: pointer;
+}
+
+.filledStar {
+  color: gold;
+  transition: transform 0.2s;
+}
+
+.emptyStar {
+  color: grey;
+  transition: transform 0.2s;
+}
+
+.filledStar:hover,
+.emptyStar:hover {
+  transform: scale(1.4);
+}

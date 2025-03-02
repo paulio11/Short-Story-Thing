@@ -1,0 +1,14 @@
+#frontend
+frontend/node_modules/
+
+#backend
+backend/db.sqlite3
+backend/env.py
+backend/venv/
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+ehthumbs.db

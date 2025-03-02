@@ -1,0 +1,43 @@
+@media screen and (display-mode: standalone) {
+  .header {
+    padding-top: 36px;
+  }
+}
+
+.header {
+  padding-right: 10px;
+  height: var(--header-space);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 997;
+  background-color: white;
+  background-color: #ebe0c9;
+}
+
+.menuBtnContainer {
+  padding-right: calc(var(--default-space) - 4px);
+}
+
+.leftHeader {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin: 5px;
+  display: inline;
+  font-size: 24px;
+  text-align: left;
+}
+
+.backBtn {
+  min-width: 10px;
+  opacity: 50%;
+}

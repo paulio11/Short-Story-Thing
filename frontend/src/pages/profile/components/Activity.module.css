@@ -1,0 +1,77 @@
+.activityContainer {
+  margin-bottom: var(--default-space);
+  cursor: pointer;
+}
+
+.activityContainer:last-of-type {
+  margin-bottom: 0;
+}
+
+.activity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header {
+  font-size: 14px;
+  font-family: var(--other-font-family);
+  padding: 0 0 5px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.visibility {
+  font-size: 20px;
+  color: var(--progress-background);
+}
+
+.breakdown {
+  font-size: 14px;
+  font-family: var(--other-font-family);
+}
+
+.title span {
+  font-weight: bold;
+}
+
+.progressContainer {
+  height: 17px;
+  width: 100%;
+  background-color: var(--progress-background);
+}
+
+.progressBar {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  padding-right: 5px;
+  box-sizing: border-box;
+}
+
+.extraContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.noteHeader {
+  font-family: var(--other-font-family);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.note {
+  font-family: "Itim", Georgia, "Times New Roman", Times, serif;
+  background-color: #fdfaf3;
+  white-space: pre-line;
+  padding: 10px;
+}
