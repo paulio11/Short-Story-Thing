@@ -239,12 +239,14 @@ const Stories = () => {
       {!loading && stories.length === 0 && (
         <div className="message">There are no stories ☹️.</div>
       )}
-      {!loading && (
+      {!loading ? (
         <div>
           {stories.map((story, i) => (
             <StoryCard key={i} {...story} setData={setStories} />
           ))}
         </div>
+      ) : (
+        <div className="message">Loading...</div>
       )}
     </div>
   );
