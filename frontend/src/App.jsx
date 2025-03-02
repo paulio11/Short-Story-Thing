@@ -27,6 +27,10 @@ function App() {
     setBackendAvailabilityCallback(setBackendAvailable);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   if (userLoading) {
     return null;
   }
@@ -34,10 +38,6 @@ function App() {
   if (!backendAvailable) {
     return <ServerError />;
   }
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
 
   return (
     <>
