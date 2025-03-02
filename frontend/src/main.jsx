@@ -7,7 +7,7 @@ import { AuthProvider } from "./contexts/AuthContext.jsx";
 import { SettingsProvider } from "./contexts/SettingsContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/projects/shortstorything/">
     <AuthProvider>
       <SettingsProvider>
         <App />
