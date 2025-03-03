@@ -27,7 +27,11 @@ const ButtonsStory = (props) => {
       try {
         const { status } = await backendAPI.delete(`/story/${id}`);
         if (status === 204) {
-          setData((prevData) => prevData.filter((story) => story.id !== id));
+          setData((prevData) => ({
+            ...prevData,
+            results: prevData.results.filter((story) => story.id !== id),
+            count: prevData.count - 1,
+          }));
         }
         setShowModal(false);
       } catch (error) {
@@ -46,9 +50,12 @@ const ButtonsStory = (props) => {
         is_public: !is_public,
       });
       if (status === 200) {
-        setData((prevData) =>
-          prevData.map((activity) => (activity.id === id ? data : activity))
-        );
+        setData((prevData) => ({
+          ...prevData,
+          results: prevData.results.map((story) =>
+            story.id === id ? data : story
+          ),
+        }));
       }
     } catch (error) {
       setErrors(error.response?.data.detail);
