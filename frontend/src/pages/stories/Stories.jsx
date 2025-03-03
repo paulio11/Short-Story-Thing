@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import styles from "./Stories.module.css";
 import { useAuth } from "../../contexts/AuthContext";
@@ -8,7 +9,7 @@ import StoryCard from "./components/StoryCard";
 
 const Stories = () => {
   const { user } = useAuth();
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState({ results: [], next: null, count: 0 });
   const [loading, setLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
@@ -27,7 +28,7 @@ const Stories = () => {
   const [filters, setFilters] = useState(initialFilters);
   const isDisabled = JSON.stringify(filters) === JSON.stringify(initialFilters);
 
-  const getStories = async (filters) => {
+  const getStories = async (filters, url = "/story/list/") => {
     setLoading(true);
 
     let queryString = "";
@@ -61,8 +62,15 @@ const Stories = () => {
     }
 
     try {
-      const { data } = await backendAPI.get(`/story/list/?${queryString}`);
-      setStories(data);
+      const { data } = await backendAPI.get(`${url}?${queryString}`);
+      setStories((prevStories) => ({
+        results:
+          url === "/story/list/"
+            ? data.results
+            : [...prevStories.results, ...data.results],
+        next: data.next,
+        count: data.count,
+      }));
     } catch (error) {
       console.error("Error fetching stories:", error);
     } finally {
@@ -226,28 +234,31 @@ const Stories = () => {
               </label>
             </div>
             <div className="button-row-between">
-              <button type="button" disabled={isDisabled} onClick={handleReset}>
+              <button type="button" onClick={handleReset}>
                 Reset
               </button>
-              <button type="submit" disabled={isDisabled}>
-                Apply
+              <button type="submit" disabled={isDisabled || loading}>
+                {loading ? "Loading..." : "Apply"}
               </button>
             </div>
           </div>
         </form>
       )}
-      {!loading && stories.length === 0 && (
+      {!loading && stories.count === 0 && (
         <div className="message">There are no stories ☹️.</div>
       )}
-      {!loading ? (
+      <InfiniteScroll
+        dataLength={stories.results.length}
+        next={() => getStories(filters, stories.next)}
+        hasMore={!!stories.next}
+        loader={<div className="message">Loading more...</div>}
+      >
         <div>
-          {stories.map((story, i) => (
+          {stories.results.map((story, i) => (
             <StoryCard key={i} {...story} setData={setStories} />
           ))}
         </div>
-      ) : (
-        <div className="message">Loading...</div>
-      )}
+      </InfiniteScroll>
     </div>
   );
 };
