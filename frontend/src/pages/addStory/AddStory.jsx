@@ -5,15 +5,17 @@ import Header from "../../components/header/Header";
 import { backendAPI } from "../../api/AxiosConfig";
 
 const AddStory = () => {
-  const [storyData, setStoryData] = useState({
+  const initialStoryData = {
     title: "",
     author: "",
     content: "",
     is_public: true,
-  });
+  };
+  const [storyData, setStoryData] = useState(initialStoryData);
   const { title, author, content, is_public } = storyData;
   const [posting, setPosting] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [addedStory, setAddedStory] = useState("");
   const nav = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -25,7 +27,8 @@ const AddStory = () => {
         storyData
       );
       if (status === 201) {
-        nav(`/s/${data.id}/0`);
+        setStoryData(initialStoryData);
+        setAddedStory(data);
       }
     } catch (error) {
       console.error("Error posting story:", error);
@@ -59,103 +62,126 @@ const AddStory = () => {
   return (
     <div className="page">
       <Header title="Add Story" showHeading />
-      <form onSubmit={handleSubmit}>
-        <div className="form-inputs">
-          <div className="form-input-group">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              onChange={handleChange}
-              required
-            />
-            {errors.title?.map((error, i) => (
-              <div className="message alert" key={i}>
-                {error}
-              </div>
-            ))}
+      {addedStory ? (
+        <>
+          <div className="message">
+            <strong>{addedStory.title}</strong> by {addedStory.author} added!
           </div>
-          <div className="form-input-group">
-            <label htmlFor="author">Author</label>
-            <input
-              type="text"
-              id="author"
-              name="author"
-              value={author}
-              onChange={handleChange}
-              required
-            />
-            {errors.author?.map((error, i) => (
-              <div className="message alert" key={i}>
-                {error}
-              </div>
-            ))}
+          <div className="button-row-between">
+            <button
+              onClick={() => setAddedStory(null)}
+              className="button-with-icon"
+            >
+              <span className="material-symbols-outlined">add</span>Add another
+            </button>
+            <button
+              onClick={() => nav(`/s/${addedStory.id}/0`)}
+              className="button-with-icon"
+            >
+              <span className="material-symbols-outlined">menu_book</span>Read
+              story
+            </button>
           </div>
-          <div className="form-input-group">
-            <label htmlFor="content">Story content</label>
-            <textarea
-              name="content"
-              id="content"
-              value={content}
-              onChange={handleChange}
-              required
-              rows={10}
-            ></textarea>
-            {errors.content?.map((error, i) => (
-              <div className="message alert" key={i}>
-                {error}
-              </div>
-            ))}
-          </div>
-          <div className="radio-input-group">
-            <label>
+        </>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div className="form-inputs">
+            <div className="form-input-group">
+              <label htmlFor="title">Title</label>
               <input
-                type="radio"
-                name="is_public"
-                value={true}
-                checked={is_public === true}
+                type="text"
+                id="title"
+                name="title"
+                value={title}
                 onChange={handleChange}
+                required
               />
-              Public
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="is_public"
-                value={false}
-                checked={is_public === false}
-                onChange={handleChange}
-              />
-              Private
-            </label>
-          </div>
-          {errors.is_public?.map((error, i) => (
-            <div className="message alert" key={i}>
-              {error}
+              {errors.title?.map((error, i) => (
+                <div className="message alert" key={i}>
+                  {error}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="button-row-between">
-          <button
-            type="button"
-            onClick={handlePaste}
-            className="button-with-icon"
-          >
-            <span className="material-symbols-outlined">content_paste</span>
-            Paste from clipboard
-          </button>
-          <button
-            type="submit"
-            disabled={!title || !author || !content || posting}
-            className="button-with-icon"
-          >
-            <span className="material-symbols-outlined">add</span>
-            {posting ? "Adding" : "Add story"}
-          </button>
-        </div>
-      </form>
+            <div className="form-input-group">
+              <label htmlFor="author">Author</label>
+              <input
+                type="text"
+                id="author"
+                name="author"
+                value={author}
+                onChange={handleChange}
+                required
+              />
+              {errors.author?.map((error, i) => (
+                <div className="message alert" key={i}>
+                  {error}
+                </div>
+              ))}
+            </div>
+            <div className="form-input-group">
+              <label htmlFor="content">Story content</label>
+              <textarea
+                name="content"
+                id="content"
+                value={content}
+                onChange={handleChange}
+                required
+                rows={10}
+              ></textarea>
+              {errors.content?.map((error, i) => (
+                <div className="message alert" key={i}>
+                  {error}
+                </div>
+              ))}
+            </div>
+            <div className="radio-input-group">
+              <label>
+                <input
+                  type="radio"
+                  name="is_public"
+                  value={true}
+                  checked={is_public === true}
+                  onChange={handleChange}
+                />
+                Public
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="is_public"
+                  value={false}
+                  checked={is_public === false}
+                  onChange={handleChange}
+                />
+                Private
+              </label>
+            </div>
+            {errors.is_public?.map((error, i) => (
+              <div className="message alert" key={i}>
+                {error}
+              </div>
+            ))}
+          </div>
+          <div className="button-row-between">
+            <button
+              type="button"
+              onClick={handlePaste}
+              className="button-with-icon"
+            >
+              <span className="material-symbols-outlined">content_paste</span>
+              Paste from clipboard
+            </button>
+            <button
+              type="submit"
+              disabled={!title || !author || !content || posting}
+              className="button-with-icon"
+            >
+              <span className="material-symbols-outlined">add</span>
+              {posting ? "Adding" : "Add story"}
+            </button>
+          </div>
+        </form>
+      )}
       {errors.non_field_errors?.map((message, i) => (
         <div className="message alert" key={i}>
           {message}
