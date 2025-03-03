@@ -3,6 +3,7 @@ from django.db.models.functions import Coalesce, Length, Trim
 from rest_framework import generics, permissions, status
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
+from rest_framework.pagination import LimitOffsetPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
 import random
@@ -51,6 +52,13 @@ class StoryFilter(filters.FilterSet):
         return queryset.filter(q)
 
 
+class StoryPagination(LimitOffsetPagination):
+    default_limit = 10  # Number of items per request
+    max_limit = 50  # Maximum allowed items per request
+    limit_query_param = 'limit'  # Default is 'limit'
+    offset_query_param = 'offset'  # Default is 'offset'
+
+
 class StoryList(generics.ListAPIView):
     # StoryListSerializer excludes story content field
     serializer_class = StoryListSerializer
@@ -61,6 +69,7 @@ class StoryList(generics.ListAPIView):
                        'title', 'word_count', 'created']
     filterset_class = StoryFilter
     ordering = ['-created']
+    pagination_class = StoryPagination
 
     def get_queryset(self):
         user = self.request.user
