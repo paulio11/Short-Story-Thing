@@ -16,7 +16,7 @@ const Stories = () => {
   const initialFilters = {
     searchQuery: "",
     sortOrder: "desc",
-    sortBy: "created",
+    sortBy: "",
     owner: "all",
     progress: {
       p0: false,
@@ -28,27 +28,28 @@ const Stories = () => {
   const [filters, setFilters] = useState(initialFilters);
   const isDisabled = JSON.stringify(filters) === JSON.stringify(initialFilters);
 
-  const getStories = async (filters, url = "/story/list/") => {
+  const getStories = async (filters = {}, url = "/story/list/") => {
     setLoading(true);
 
     let queryString = "";
 
-    if (filters.searchQuery) {
+    if (filters && filters.searchQuery) {
       queryString += `search=${filters.searchQuery}&`;
     }
-    if (filters.owner === "user") {
+    if (filters && filters.owner === "user") {
       queryString += `owner=${user.pk}&`;
     }
-    if (filters.sortBy) {
+    if (filters && filters.sortBy) {
       queryString += `ordering=${
         filters.sortOrder === "asc" ? filters.sortBy : `-${filters.sortBy}`
       }&`;
     }
 
     const progressFilters = [];
-    if (filters.progress.p0) progressFilters.push("0");
-    if (filters.progress.pInbetween) progressFilters.push("inbetween");
-    if (filters.progress.p100) progressFilters.push("100");
+    if (filters && filters.progress.p0) progressFilters.push("0");
+    if (filters && filters.progress.pInbetween)
+      progressFilters.push("inbetween");
+    if (filters && filters.progress.p100) progressFilters.push("100");
 
     if (progressFilters.length > 0) {
       queryString +=
@@ -62,7 +63,10 @@ const Stories = () => {
     }
 
     try {
-      const { data } = await backendAPI.get(`${url}?${queryString}`);
+      // const { data } = await backendAPI.get(`${url}?${queryString}`);
+      const { data } = await backendAPI.get(
+        `${url}${filters ? `?${queryString}` : ""}`
+      );
       setStories((prevStories) => ({
         results:
           url === "/story/list/"
@@ -71,6 +75,8 @@ const Stories = () => {
         next: data.next,
         count: data.count,
       }));
+      console.log(url);
+      console.log(queryString);
     } catch (error) {
       console.error("Error fetching stories:", error);
     } finally {
@@ -156,10 +162,10 @@ const Stories = () => {
                     setFilters({ ...filters, sortBy: e.target.value })
                   }
                 >
+                  <option value="created">Date added</option>
                   <option value="title">Title</option>
                   <option value="user_rating">Your rating</option>
                   <option value="user_progress">Your progress</option>
-                  <option value="created">Date added</option>
                   <option value="word_count">Length</option>
                 </select>
                 <button
@@ -249,7 +255,7 @@ const Stories = () => {
       )}
       <InfiniteScroll
         dataLength={stories.results.length}
-        next={() => getStories(filters, stories.next)}
+        next={() => getStories(null, stories.next)}
         hasMore={!!stories.next}
         loader={<div className="message">Loading more...</div>}
       >
