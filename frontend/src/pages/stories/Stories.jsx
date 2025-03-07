@@ -75,8 +75,6 @@ const Stories = () => {
         next: data.next,
         count: data.count,
       }));
-      console.log(url);
-      console.log(queryString);
     } catch (error) {
       console.error("Error fetching stories:", error);
     } finally {
