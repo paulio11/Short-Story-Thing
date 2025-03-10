@@ -238,6 +238,7 @@ section {
   justify-content: space-between;
   gap: var(--default-space);
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .button-col {
