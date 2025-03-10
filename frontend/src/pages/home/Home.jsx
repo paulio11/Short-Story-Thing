@@ -1,25 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./Home.module.css";
-import { backendAPI } from "../../api/AxiosConfig";
 import { useAuth } from "../../contexts/AuthContext";
 import Header from "../../components/header/Header";
+import RandomStoryBtn from "./components/RandomStoryBtn";
 
 const Home = () => {
   const { user } = useAuth();
   const nav = useNavigate();
-  const [length, setLength] = useState(10000);
-
-  const readRandom = async () => {
-    try {
-      const { data } = await backendAPI.get("/story/random/");
-      const randomID = data.id;
-      nav(`/s/${randomID}/0`);
-    } catch (error) {
-      console.error("Error getting random story ID:", error);
-    }
-  };
 
   return (
     <div>
@@ -46,10 +35,8 @@ const Home = () => {
                   Continue last story
                 </button>
               )}
-              <button onClick={readRandom} className="button-with-icon">
-                <span className="material-symbols-outlined">menu_book</span>{" "}
-                Read a random story
-              </button>
+
+              <RandomStoryBtn />
             </>
           ) : (
             <>

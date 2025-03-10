@@ -1,0 +1,9 @@
+.randomForm {
+  background-color: white;
+  padding: var(--default-space);
+  border-radius: var(--border-radius);
+}
+
+.lengthInput {
+  width: 100%;
+}
