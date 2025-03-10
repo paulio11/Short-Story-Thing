@@ -1,5 +1,5 @@
-from django.db.models import Func, Q, Subquery, Value, IntegerField, OuterRef
-from django.db.models.functions import Coalesce, Length, Trim
+from django.db.models import Func, Q, Subquery, Value, IntegerField, OuterRef, Count
+from django.db.models.functions import Coalesce, Length, Trim, Replace
 from rest_framework import generics, permissions, status
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
@@ -35,10 +35,8 @@ class StoryFilter(filters.FilterSet):
         )
     )
     owner = filters.CharFilter(field_name='owner', lookup_expr='exact')
-
-    class Meta:
-        model = Story
-        fields = ['is_public', 'user_progress', 'owner']
+    word_count_max = filters.NumberFilter(
+        field_name="word_count", lookup_expr="lte")
 
     # Provides options for read (100), reading (inbetween), and not read (0)
     def filter_user_progress(self, queryset, name, values):
@@ -129,6 +127,12 @@ class RandomUnreadStory(generics.ListAPIView):
         if not user.is_authenticated:
             return Story.objects.none()
 
+        max_length = self.request.query_params.get("max_length")
+        try:
+            max_length = int(max_length) if max_length is not None else None
+        except ValueError:
+            return Story.objects.none()
+
         qs = Story.objects.annotate(
             user_progress=Coalesce(
                 Subquery(
@@ -136,10 +140,17 @@ class RandomUnreadStory(generics.ListAPIView):
                         'pk'), owner=user).values('progress')[:1]
                 ),
                 None
-            )
+            ),
+            word_count=WordCount('content')
         )
 
-        return qs.filter(user_progress__isnull=True).filter(Q(is_public=True) | Q(owner=user))
+        filtered_qs = qs.filter(user_progress__isnull=True).filter(
+            Q(is_public=True) | Q(owner=user))
+
+        if max_length is not None:
+            filtered_qs = filtered_qs.filter(word_count__lte=max_length)
+
+        return filtered_qs
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -152,5 +163,4 @@ class RandomUnreadStory(generics.ListAPIView):
             )
 
         random_story = queryset.order_by('?').first()
-
-        return Response({"id": random_story.id}, status=status.HTTP_200_OK)
+        return Response({"id": random_story.id, "word_count": random_story.word_count}, status=status.HTTP_200_OK)
